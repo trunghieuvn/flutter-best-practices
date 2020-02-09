@@ -62,39 +62,40 @@ class _HomeScreenState extends State<HomeScreen> {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: StreamBuilder<Object>(
-              stream: _bloc.listContainerStream,
-              initialData: _bloc.currentSelectedIdx,
-              builder: (context, snapshot) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: _bloc.containerDatas
-                      .asMap()
-                      .map(
-                        (i, container) => MapEntry(
-                          i,
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: SimpleButton(
-                              height: 100,
-                              width: 100,
-                              bgColors: [container.color, container.color],
-                              borderRadius: 0,
-                              text: container.clickedCount.toString(),
-                              textStyle: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 30,
-                              ),
-                              onPressed: () {
-                                _bloc.changeContainerState(i);
-                              },
+            stream: _bloc.listContainerStream,
+            initialData: _bloc.currentSelectedIdx,
+            builder: (context, snapshot) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: _bloc.containerDatas
+                    .asMap()
+                    .map(
+                      (i, container) => MapEntry(
+                        i,
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: SimpleButton(
+                            height: 100,
+                            width: 100,
+                            bgColors: [container.color, container.color],
+                            borderRadius: 0,
+                            text: container.clickedCount.toString(),
+                            textStyle: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
                             ),
+                            onPressed: () {
+                              _bloc.changeContainerState(i);
+                            },
                           ),
                         ),
-                      )
-                      .values
-                      .toList(),
-                );
-              }),
+                      ),
+                    )
+                    .values
+                    .toList(),
+              );
+            },
+          ),
         ),
         const SizedBox(
           height: 30,
