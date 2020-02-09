@@ -42,9 +42,7 @@ class HomeScreenBloc {
   }
 
   void initData() {
-    Future.delayed(const Duration(seconds: 2)).then((_) {
-      changeHomeScreenState(HomeScreenState.none);
-    });
+    changeHomeScreenState(HomeScreenState.none);
   }
 
   void changeHomeScreenState(HomeScreenState state) {

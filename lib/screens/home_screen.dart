@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/bloc/home_screen_bloc.dart';
-import 'package:flutter_test_app/widgets/simple_button.dart';
+import 'package:flutter_test_app/common/widgets/simple_button.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -24,23 +24,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: StreamBuilder<HomeScreenState>(
-          stream: _bloc.itemStream,
-          initialData: _bloc.globalState,
-          builder: (context, snapshot) {
-            if (snapshot == null ||
-                snapshot.hasError ||
-                !snapshot.hasData ||
-                snapshot.data == HomeScreenState.loading) {
-              _bloc.initData();
-              return _buidLoading();
-            }
+    return Scaffold(
+      body: StreamBuilder<HomeScreenState>(
+        stream: _bloc.itemStream,
+        initialData: _bloc.globalState,
+        builder: (context, snapshot) {
+          if (snapshot == null ||
+              snapshot.hasError ||
+              !snapshot.hasData ||
+              snapshot.data == HomeScreenState.loading) {
+            _bloc.initData();
+            return _buidLoading();
+          }
 
-            return _buildMainHome();
-          },
-        ),
+          return SafeArea(child: _buildMainHome());
+        },
       ),
     );
   }
@@ -64,58 +62,63 @@ class _HomeScreenState extends State<HomeScreen> {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: StreamBuilder<Object>(
-              stream: _bloc.listContainerStream,
-              initialData: _bloc.currentSelectedIdx,
-              builder: (context, snapshot) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: _bloc.containerDatas
-                      .asMap()
-                      .map((i, container) => MapEntry(
-                          i,
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: SimpleButton(
-                              height: 100,
-                              width: 100,
-                              bgColors: [container.color, container.color],
-                              borderRadius: 0,
-                              text: container.clickedCount.toString(),
-                              textStyle: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 30,
-                              ),
-                              onPressed: () {
-                                _bloc.changeContainerState(i);
-                              },
+            stream: _bloc.listContainerStream,
+            initialData: _bloc.currentSelectedIdx,
+            builder: (context, snapshot) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: _bloc.containerDatas
+                    .asMap()
+                    .map(
+                      (i, container) => MapEntry(
+                        i,
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: SimpleButton(
+                            height: 100,
+                            width: 100,
+                            bgColors: [container.color, container.color],
+                            borderRadius: 0,
+                            text: container.clickedCount.toString(),
+                            textStyle: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
                             ),
-                          )))
-                      .values
-                      .toList(),
-                );
-              }),
+                            onPressed: () {
+                              _bloc.changeContainerState(i);
+                            },
+                          ),
+                        ),
+                      ),
+                    )
+                    .values
+                    .toList(),
+              );
+            },
+          ),
         ),
         const SizedBox(
           height: 30,
         ),
         StreamBuilder<int>(
-            stream: _bloc.containerStream,
-            initialData: _bloc.currentSelectedIdx,
-            builder: (context, snapshot) {
-              final containerData = _bloc.containerDatas[snapshot.data];
-              return SimpleButton(
-                height: 120,
-                width: 120,
-                bgColors: [containerData.color, containerData.color],
-                borderRadius: 0,
-                text: containerData.clickedCount.toString(),
-                textStyle: const TextStyle(color: Colors.white, fontSize: 30),
-                onPressed: () {
-                  containerData.clickedCount++;
-                  _bloc.updateList(_bloc.currentSelectedIdx);
-                },
-              );
-            }),
+          stream: _bloc.containerStream,
+          initialData: _bloc.currentSelectedIdx,
+          builder: (context, snapshot) {
+            final containerData = _bloc.containerDatas[snapshot.data];
+            return SimpleButton(
+              height: 120,
+              width: 120,
+              bgColors: [containerData.color, containerData.color],
+              borderRadius: 0,
+              text: containerData.clickedCount.toString(),
+              textStyle: const TextStyle(color: Colors.white, fontSize: 30),
+              onPressed: () {
+                containerData.clickedCount++;
+                _bloc.updateList(_bloc.currentSelectedIdx);
+              },
+            );
+          },
+        ),
       ],
     );
   }
