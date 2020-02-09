@@ -14,10 +14,13 @@ class SimpleButton extends StatelessWidget {
     this.height,
     this.width,
     this.bgColors = const [Color(0xffb5f959), Color(0xff69ae08)],
-    this.text,
+    @required this.text,
     this.onPressed,
     this.textStyle = const TextStyle(
-        color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+      color: Colors.white,
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+    ),
     this.borderRadius,
   }) : super(key: key);
 
