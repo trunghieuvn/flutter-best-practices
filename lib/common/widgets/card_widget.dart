@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SimpleButton extends StatelessWidget {
+class CardWidget extends StatelessWidget {
   final double height;
   final double width;
   final List<Color> bgColors;
@@ -9,12 +9,12 @@ class SimpleButton extends StatelessWidget {
   final Function onPressed;
   final double borderRadius;
 
-  const SimpleButton({
+  const CardWidget({
     Key key,
-    this.height,
-    this.width,
+    this.height = 45,
+    this.width = 120,
     this.bgColors = const [Color(0xffb5f959), Color(0xff69ae08)],
-    @required this.text,
+    this.text = '',
     this.onPressed,
     this.textStyle = const TextStyle(
       color: Colors.white,

@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:flutter_test_app/models/container_data.dart';
+import 'package:flutter_test_app/controllers/home/container_observerble.dart';
+import 'package:flutter_test_app/screens/home/__mock__/card_data_mock.dart';
 
 enum HomeScreenState {
   none,
@@ -16,29 +16,14 @@ class HomeScreenBloc {
   StreamController<int> _containerController;
   int currentSelectedIdx = 0;
   Stream<int> get containerStream => _containerController.stream;
-
-  StreamController<int> _listContainerController;
-  Stream<int> get listContainerStream => _listContainerController.stream;
-
-  //data
-  List<ContainerData> containerDatas = [
-    ContainerData(0, Colors.amber),
-    ContainerData(0, Colors.blue),
-    ContainerData(0, Colors.green),
-    ContainerData(0, Colors.grey),
-    ContainerData(0, Colors.greenAccent),
-    ContainerData(0, Colors.redAccent),
-    ContainerData(0, Colors.pink),
-    ContainerData(0, Colors.pinkAccent),
-    ContainerData(0, Colors.purple),
-    ContainerData(0, Colors.purpleAccent),
-    ContainerData(0, Colors.deepOrange),
-  ];
+  List<ContainerController> containerObserDatas;
 
   HomeScreenBloc() {
     _blocController = StreamController.broadcast();
     _containerController = StreamController.broadcast();
-    _listContainerController = StreamController.broadcast();
+
+    // TODO(hieu): dumy data
+    containerObserDatas = CardDataMock.containerObserDatas;
   }
 
   void initData() {
@@ -59,15 +44,9 @@ class HomeScreenBloc {
     }
   }
 
-  void updateList(int idx) {
-    if (!_containerController.isClosed) {
-      _listContainerController.sink.add(idx);
-    }
-  }
-
   void dispose() {
     _blocController?.close();
     _containerController?.close();
-    _listContainerController?.close();
+    containerObserDatas.map((item) => {item.dispose()});
   }
 }
