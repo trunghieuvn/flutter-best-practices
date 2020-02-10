@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_test_app/bloc/home_screen_bloc.dart';
-import 'package:flutter_test_app/common/widgets/simple_button.dart';
+import 'package:flutter_test_app/common/widgets/card_widget.dart';
 import 'package:flutter_test_app/models/container_data.dart';
 import 'package:flutter_test_app/screens/home/home_constants.dart';
 
@@ -79,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           final data = snapshot.data;
                           return Padding(
                             padding: const EdgeInsets.only(right: 10),
-                            child: SimpleButton(
+                            child: CardWidget(
                               key: Key(
                                 '${HomeConstants.buttonContainerListKey}$i',
                               ),
@@ -119,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 initialData: _bloc.containerObserDatas[idx].data,
                 builder: (context, snapshot) {
                   final containerData = _bloc.containerObserDatas[idx].data;
-                  return SimpleButton(
+                  return CardWidget(
                     key: const Key(HomeConstants.buttonContainerDetailKey),
                     height: 140,
                     width: 140,

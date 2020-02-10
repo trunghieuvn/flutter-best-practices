@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SimpleButton extends StatelessWidget {
+class CardWidget extends StatelessWidget {
   final double height;
   final double width;
   final List<Color> bgColors;
@@ -9,7 +9,7 @@ class SimpleButton extends StatelessWidget {
   final Function onPressed;
   final double borderRadius;
 
-  const SimpleButton({
+  const CardWidget({
     Key key,
     this.height = 45,
     this.width = 120,

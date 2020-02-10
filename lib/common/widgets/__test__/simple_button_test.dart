@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_test_app/common/widgets/simple_button.dart';
+import 'package:flutter_test_app/common/widgets/card_widget.dart';
 
 void main() {
   testWidgets('Simple button test ', (WidgetTester tester) async {
@@ -10,7 +10,7 @@ void main() {
       MaterialApp(
         home: Scaffold(
           body: Container(
-            child: SimpleButton(
+            child: CardWidget(
               key: key,
               text: 'hi',
               height: 100,
