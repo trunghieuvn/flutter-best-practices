@@ -11,10 +11,10 @@ class SimpleButton extends StatelessWidget {
 
   const SimpleButton({
     Key key,
-    this.height,
-    this.width,
+    this.height = 45,
+    this.width = 120,
     this.bgColors = const [Color(0xffb5f959), Color(0xff69ae08)],
-    @required this.text,
+    this.text = '',
     this.onPressed,
     this.textStyle = const TextStyle(
       color: Colors.white,

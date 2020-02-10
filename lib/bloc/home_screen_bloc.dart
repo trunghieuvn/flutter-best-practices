@@ -17,28 +17,24 @@ class HomeScreenBloc {
   int currentSelectedIdx = 0;
   Stream<int> get containerStream => _containerController.stream;
 
-  StreamController<int> _listContainerController;
-  Stream<int> get listContainerStream => _listContainerController.stream;
-
   //data
-  List<ContainerData> containerDatas = [
-    ContainerData(0, Colors.amber),
-    ContainerData(0, Colors.blue),
-    ContainerData(0, Colors.green),
-    ContainerData(0, Colors.grey),
-    ContainerData(0, Colors.greenAccent),
-    ContainerData(0, Colors.redAccent),
-    ContainerData(0, Colors.pink),
-    ContainerData(0, Colors.pinkAccent),
-    ContainerData(0, Colors.purple),
-    ContainerData(0, Colors.purpleAccent),
-    ContainerData(0, Colors.deepOrange),
+  List<ContainerObserverble> containerObserDatas = [
+    ContainerObserverble(ContainerData(0, Colors.amber)),
+    ContainerObserverble(ContainerData(0, Colors.blue)),
+    ContainerObserverble(ContainerData(0, Colors.green)),
+    ContainerObserverble(ContainerData(0, Colors.grey)),
+    ContainerObserverble(ContainerData(0, Colors.greenAccent)),
+    ContainerObserverble(ContainerData(0, Colors.redAccent)),
+    ContainerObserverble(ContainerData(0, Colors.pink)),
+    ContainerObserverble(ContainerData(0, Colors.pinkAccent)),
+    ContainerObserverble(ContainerData(0, Colors.purple)),
+    ContainerObserverble(ContainerData(0, Colors.purpleAccent)),
+    ContainerObserverble(ContainerData(0, Colors.deepOrange))
   ];
 
   HomeScreenBloc() {
     _blocController = StreamController.broadcast();
     _containerController = StreamController.broadcast();
-    _listContainerController = StreamController.broadcast();
   }
 
   void initData() {
@@ -59,15 +55,11 @@ class HomeScreenBloc {
     }
   }
 
-  void updateList(int idx) {
-    if (!_containerController.isClosed) {
-      _listContainerController.sink.add(idx);
-    }
-  }
-
   void dispose() {
     _blocController?.close();
     _containerController?.close();
-    _listContainerController?.close();
+    containerObserDatas.map((item) => {
+      item.dispose()
+    });
   }
 }
