@@ -84,8 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               key: Key(
                                 '${HomeConstants.buttonContainerListKey}$i',
                               ),
-                              height: 130,
-                              width: 100,
+                              height: HomeConstants.cardHeigth,
+                              width: HomeConstants.cardWidth,
                               bgColors: [data.color, data.color],
                               borderRadius: 0,
                               text: data.clickedCount.toString(),
@@ -116,26 +116,30 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (context, snapshotIdx) {
             final idx = snapshotIdx.data;
             return StreamBuilder<ContainerData>(
-                stream: _bloc.containerObserDatas[idx].getStream,
-                initialData: _bloc.containerObserDatas[idx].data,
-                builder: (context, snapshot) {
-                  final containerData = _bloc.containerObserDatas[idx].data;
-                  return CardWidget(
-                    key: const Key(HomeConstants.buttonContainerDetailKey),
-                    height: 140,
-                    width: 140,
-                    bgColors: [containerData.color, containerData.color],
-                    borderRadius: 0,
-                    text: containerData.clickedCount.toString(),
-                    textStyle:
-                        const TextStyle(color: Colors.white, fontSize: 30),
-                    onPressed: () {
-                      containerData.clickedCount++;
-                      _bloc.containerObserDatas[idx].notifidataChanged(
-                          ContainerData.copyFrom(containerData));
-                    },
-                  );
-                });
+              stream: _bloc.containerObserDatas[idx].getStream,
+              initialData: _bloc.containerObserDatas[idx].data,
+              builder: (context, snapshot) {
+                final containerData = _bloc.containerObserDatas[idx].data;
+                return CardWidget(
+                  key: const Key(HomeConstants.buttonContainerDetailKey),
+                  height: HomeConstants.cardWidth * 1.2,
+                  width: HomeConstants.cardWidth * 1.2,
+                  bgColors: [containerData.color, containerData.color],
+                  borderRadius: 0,
+                  text: containerData.clickedCount.toString(),
+                  textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                  ),
+                  onPressed: () {
+                    containerData.clickedCount++;
+                    _bloc.containerObserDatas[idx].notifidataChanged(
+                      ContainerData.copyFrom(containerData),
+                    );
+                  },
+                );
+              },
+            );
           },
         ),
       ],

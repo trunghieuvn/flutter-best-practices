@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:flutter_test_app/models/container_data.dart';
+import 'package:flutter_test_app/screens/home/__mock__/card_data_mock.dart';
 
 enum HomeScreenState {
   none,
@@ -16,25 +16,13 @@ class HomeScreenBloc {
   StreamController<int> _containerController;
   int currentSelectedIdx = 0;
   Stream<int> get containerStream => _containerController.stream;
-
-  //data
-  List<ContainerObserverble> containerObserDatas = [
-    ContainerObserverble(ContainerData(0, Colors.amber)),
-    ContainerObserverble(ContainerData(0, Colors.blue)),
-    ContainerObserverble(ContainerData(0, Colors.green)),
-    ContainerObserverble(ContainerData(0, Colors.grey)),
-    ContainerObserverble(ContainerData(0, Colors.greenAccent)),
-    ContainerObserverble(ContainerData(0, Colors.redAccent)),
-    ContainerObserverble(ContainerData(0, Colors.pink)),
-    ContainerObserverble(ContainerData(0, Colors.pinkAccent)),
-    ContainerObserverble(ContainerData(0, Colors.purple)),
-    ContainerObserverble(ContainerData(0, Colors.purpleAccent)),
-    ContainerObserverble(ContainerData(0, Colors.deepOrange))
-  ];
+  List<ContainerObserverble> containerObserDatas;
 
   HomeScreenBloc() {
     _blocController = StreamController.broadcast();
     _containerController = StreamController.broadcast();
+
+    containerObserDatas = CardDataMock.containerObserDatas;
   }
 
   void initData() {
@@ -58,8 +46,6 @@ class HomeScreenBloc {
   void dispose() {
     _blocController?.close();
     _containerController?.close();
-    containerObserDatas.map((item) => {
-      item.dispose()
-    });
+    containerObserDatas.map((item) => {item.dispose()});
   }
 }
