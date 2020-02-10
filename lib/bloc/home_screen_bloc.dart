@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:flutter_test_app/models/container_data.dart';
+import 'package:flutter_test_app/controllers/home/container_observerble.dart';
 import 'package:flutter_test_app/screens/home/__mock__/card_data_mock.dart';
 
 enum HomeScreenState {
@@ -16,12 +16,13 @@ class HomeScreenBloc {
   StreamController<int> _containerController;
   int currentSelectedIdx = 0;
   Stream<int> get containerStream => _containerController.stream;
-  List<ContainerObserverble> containerObserDatas;
+  List<ContainerController> containerObserDatas;
 
   HomeScreenBloc() {
     _blocController = StreamController.broadcast();
     _containerController = StreamController.broadcast();
 
+    // TODO(hieu): dumy data
     containerObserDatas = CardDataMock.containerObserDatas;
   }
 

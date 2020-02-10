@@ -62,6 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
+        const SizedBox(
+          height: 15,
+        ),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Padding(
